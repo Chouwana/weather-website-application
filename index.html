@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <link href="src/styles.css" rel="stylesheet" type="text/css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    
+    <title>Weather App</title>
+  </head>
+  <body>
+    <div id="root">
+      <div class="App">
+        <div class="container">
+          <div class="Weather">
+            <form id="citysearch-form" class="citysearch-form">
+              <div class="row">
+                <div class="col-8">
+									<input
+										id="city-input"
+                    type="search"
+										placeholder="Enter a city..."
+										autofocus="on"
+                    autocomplete="off"
+										class="bar form-control"
+                  />
+                </div>
+                <div class="col-2 p-0">
+                  <input
+                    id="searchButton"
+                    type="submit"
+                    value="Search"
+                    class="form-control btn btn-primary shadow-sm"
+                  />
+                </div>
+                <div class="col-2">
+                  <button 
+                    id="currentButton"
+                    class="btn btn btn-primary shadow-sm"
+                    />
+                    Current
+                  </button>
+                </div>
+              </div>
+            </form>
+            <div class="WeatherInfo">
+              <div class="row">
+                <div class="col-6">
+									<h1 id="cityName">Manila</h1>
+                  <ul>
+                    <li id="date-condition"></li>
+                    <li>
+                      Humidity: 
+                      <strong id="humidity"></strong>
+                      | Wind:
+                      <strong id="speed"></strong>
+                    </li>
+                    <li>
+                      <span class="temperature" id="temperature">19</span>
+                      <input type="checkbox" class="switch" id="switch" />
+                      <label for="switch"></label>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-8">
+                  <div class="image-container d-flex justify-content-end">
+                    <img src="sun.png" width="120" height="120" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="WeatherForecast row">
+              <h3>5-DAY FORECAST</h3>
+              <div class="col border-right">
+                <div class="WeatherForecastPreview">
+                  <div class="forecast-day">Mon</div>
+                  <img src="sun.png" width="32" height="32" />
+                  <div class="forecast-temperature">
+                    <span class="forecast-temperature-max">31°C</span>
+                  </br>
+                    <span class="forecast-temperature-min">21°C</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col border-right">
+                <div class="WeatherForecastPreview">
+                  <div class="forecast-day">Tues</div>
+                  <img src="sun.png" width="32" height="32" />
+                  <div class="forecast-temperature">
+                    <span class="forecast-temperature-max">32°C</span>
+                  </br>
+                    <span class="forecast-temperature-min">23°C</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col border-right">
+                <div class="WeatherForecastPreview">
+                  <div class="forecast-day">Wed</div>
+                  <img src="sun.png" width="32" height="32" />
+                  <div class="forecast-temperature">
+                    <span class="forecast-temperature-max">28°C</span>
+                    </br>
+                    <span class="forecast-temperature-min">24°C</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col border-right">
+                <div class="WeatherForecastPreview">
+                  <div class="forecast-day">Thurs</div>
+                  <img src="sun.png" width="32" height="32" />
+                  <div class="forecast-temperature">
+                    <span class="forecast-temperature-max">34°C</span>
+                  </br>
+                    <span class="forecast-temperature-min">24°C</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="WeatherForecastPreview border-0">
+                  <div class="forecast-day">Fri</div>
+                  <img src="sun.png" width="32" height="32" />
+                  <div class="forecast-temperature">
+                    <span class="forecast-temperature-max">29°C</span>
+                  </br>
+                    <span class="forecast-temperature-min">24°C</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <footer>This project was coded by Joana Marie Estrella</footer>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="src/index.js"></script>
+  </body>
+</html>
