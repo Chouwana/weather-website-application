@@ -106,6 +106,8 @@ function displayWeatherCondition(response) {
   document.querySelector("#date-condition").innerHTML = formatDate(
     new Date()
   ).concat(" | ", response.data.condition.description);
+  document.querySelector("#weather-icon").src =
+    response.data.condition.icon_url;
   document.querySelector("#humidity").innerHTML = "".concat(
     response.data.temperature.humidity,
     "%"
