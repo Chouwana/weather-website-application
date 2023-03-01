@@ -1,25 +1,3 @@
-let weather = {
-  paris: {
-    temp: 19.7,
-    humidity: 80,
-  },
-  tokyo: {
-    temp: 17.3,
-    humidity: 50,
-  },
-  lisbon: {
-    temp: 30.2,
-    humidity: 20,
-  },
-  "san francisco": {
-    temp: 20.9,
-    humidity: 100,
-  },
-  oslo: {
-    temp: -5,
-    humidity: 20,
-  },
-};
 // Feature 1: Date
 function formatDate(date) {
   var hours = date.getHours();
@@ -44,41 +22,27 @@ function formatDate(date) {
   return "".concat(day, " ").concat(hours, ":").concat(minutes);
 }
 
-// var dateElement = document.querySelector("#date");
-// var currentTime = new Date();
-// dateElement.innerHTML = formatDate(currentTime);
-
-//Feature 2: Change City
-// function changeCity(event) {
-//   event.preventDefault();
-//   var cityName = document.querySelector("#cityName");
-//   var cityInput = document.querySelector("#city-input");
-//   cityName.innerHTML = cityInput.value;
-// }
-
-// let citySearchForm = document.querySelector("#citysearch-form");
-// citySearchForm.addEventListener("submit", changeCity);
-
-// //Feature 3: Celcius Fahrenheit
-// function convertTemperature(event) {
-//   event.preventDefault();
-//   if (temperatureCheck.checked === true) {
-//     convertToFahrenheit();
-//   } else {
-//     convertToCelsius();
-//   }
-// }
-// function convertToFahrenheit() {
-//   var temperatureElement = document.querySelector("#temperature");
-//   temperatureElement.innerHTML = 66;
-// }
-// function convertToCelsius() {
-//   var temperatureElement = document.querySelector("#temperature");
-//   temperatureElement.innerHTML = 19;
-// }
-
-// var temperatureCheck = document.querySelector("#switch");
-// temperatureCheck.addEventListener("change", convertTemperature);
+//Feature 3: Celcius Fahrenheit
+function convertTemperature(event) {
+  event.preventDefault();
+  if (temperatureScale.checked === true) {
+    convertToFahrenheit();
+  } else {
+    convertToCelsius();
+  }
+}
+function convertToFahrenheit() {
+  var temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = Math.round(
+    (temperatureElement.innerHTML * 9) / 5 + 32
+  );
+}
+function convertToCelsius() {
+  var temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = Math.round(
+    ((temperatureElement.innerHTML - 32) * 5) / 9
+  );
+}
 
 //Feature: API City Temperature
 function getCurrentDate(data) {
@@ -102,6 +66,8 @@ function getCurrentDate(data) {
 }
 
 function displayWeatherCondition(response) {
+  var temperatureScale = document.querySelector("#switch");
+  temperatureScale.checked = false;
   document.querySelector("#cityName").innerHTML = response.data.city;
   document.querySelector("#date-condition").innerHTML = formatDate(
     new Date()
@@ -159,3 +125,6 @@ citySearchForm.addEventListener("submit", submitCitySearchInput);
 
 var currentLocationButton = document.querySelector("#currentButton");
 currentLocationButton.addEventListener("click", getCurrentLocation);
+
+var temperatureScale = document.querySelector("#switch");
+temperatureScale.addEventListener("change", convertTemperature);
