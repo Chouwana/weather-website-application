@@ -5,7 +5,12 @@
 }
 
 body {
-  background: #f9f7fe;
+  background: rgb(173, 190, 212);
+  background: radial-gradient(
+    circle,
+    rgba(173, 190, 212, 1) 0%,
+    rgba(78, 112, 157, 1) 100%
+  );
 }
 
 div {
@@ -56,6 +61,13 @@ div {
 
 .Weather .btn {
   background: #202b3b;
+  border: 0;
+  box-shadow: none;
+}
+
+.Weather .btn:focus {
+  background: #202b3b;
+  color: #fff;
   border: 0;
   box-shadow: none;
 }

@@ -22,6 +22,13 @@ function formatDate(date) {
   return "".concat(day, " ").concat(hours, ":").concat(minutes);
 }
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
 //Feature 3: Celcius Fahrenheit
 function convertTemperature(event) {
   event.preventDefault();
@@ -32,37 +39,68 @@ function convertTemperature(event) {
   }
 }
 function convertToFahrenheit() {
-  var temperatureElement = document.querySelector("#temperature");
-  temperatureElement.innerHTML = Math.round(
-    (temperatureElement.innerHTML * 9) / 5 + 32
+  var temperatureElement = document.querySelectorAll(
+    "#temperature, #forecast-temperature-max, #forecast-temperature-min, #forecast-degree"
   );
+  temperatureElement.forEach(function (element) {
+    element.innerHTML = Math.round((element.innerHTML * 9) / 5 + 32);
+    if (element.id === "forecast-degree") {
+      element.innerHTML = "°F";
+    }
+  });
 }
 function convertToCelsius() {
-  var temperatureElement = document.querySelector("#temperature");
-  temperatureElement.innerHTML = Math.round(
-    ((temperatureElement.innerHTML - 32) * 5) / 9
+  var temperatureElement = document.querySelectorAll(
+    "#temperature, #forecast-temperature-max, #forecast-temperature-min, #forecast-degree"
   );
+  temperatureElement.forEach(function (element) {
+    element.innerHTML = Math.round(((element.innerHTML - 32) * 5) / 9);
+    if (element.id === "forecast-degree") {
+      element.innerHTML = "°C";
+    }
+  });
 }
 
-//Feature: API City Temperature
-function getCurrentDate(data) {
-  const currentDate = new Date(data * 1000);
-  const daysOfWeek = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  const dayOfWeek = daysOfWeek[currentDate.getDay()];
-  const time = currentDate.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
+function getForecast(city) {
+  var apiKey = "e041e9c934fa1cfb18cabt1aa4cbb40o";
+  var apiUrl = "https://api.shecodes.io/weather/v1/forecast?query="
+    .concat(city, "&key=")
+    .concat(apiKey, "&units=metric");
+  axios.get(apiUrl).then(displayForecast);
+}
+
+function displayForecast(response) {
+  let forecast = response.data.daily;
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<h3>5-DAY FORECAST</h3>`;
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `
+              <div class="col border-right">
+                <div class="WeatherForecastPreview">
+                  <div class="forecast-day">${formatDay(forecastDay.time)}</div>
+                  <img src="${
+                    forecastDay.condition.icon_url
+                  }" width="32" height="32" />
+                  <div id="forecast-temperature" class="forecast-temperature">
+                    <span class="forecast-temperature-max" id="forecast-temperature-max">${Math.round(
+                      forecastDay.temperature.maximum
+                    )}</span>
+                    <span class="forecast-temperature-max" id="forecast-degree">°C</span>
+                  </br>
+                      <span class="forecast-temperature-min" id="forecast-temperature-min">${Math.round(
+                        forecastDay.temperature.minimum
+                      )}</span>
+                      <span class="forecast-temperature-min" id="forecast-degree">°C</span>
+                  </div>
+                </div>
+              </div>`;
+    }
   });
-  return `${dayOfWeek} ${time} `;
+
+  forecastElement.innerHTML = forecastHTML;
 }
 
 function displayWeatherCondition(response) {
@@ -85,6 +123,8 @@ function displayWeatherCondition(response) {
   document.querySelector("#temperature").innerHTML = Math.round(
     response.data.temperature.current
   );
+
+  getForecast(response.data.city);
 }
 
 function searchCity(city) {
